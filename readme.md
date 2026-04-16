@@ -1,4 +1,4 @@
-# 🤖 Project.491 | Official Bots/Paginas Web
+# 🤖 Project.491 | Official Bots/Web Pages
 
 ![Project.491 Badge](https://img.shields.io/badge/Property-Project.491-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)
