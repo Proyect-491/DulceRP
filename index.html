@@ -15,7 +15,6 @@
             overflow-x: hidden;
         }
 
-        /* Colores Personalizados DulceRP */
         :root {
             --accent-pink: #ff85a2;
             --accent-blue: #7ec8ff;
@@ -26,7 +25,6 @@
         .dark { --bg-current: var(--bg-dark); --text-current: #ffffff; }
         .light { --bg-current: var(--bg-light); --text-current: #0f172a; }
 
-        /* Pantalla de Carga Animada */
         #loader {
             position: fixed;
             inset: 0;
@@ -58,7 +56,6 @@
             background-position: center;
         }
 
-        /* Cristal efecto */
         .glass {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
@@ -71,13 +68,11 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* Botones con brillo */
         .btn-glow:hover {
             box-shadow: 0 0 20px var(--accent-pink);
             transform: scale(1.05);
         }
 
-        /* Partículas flotantes */
         .particle {
             position: absolute;
             background: var(--accent-pink);
@@ -409,10 +404,8 @@
     </footer>
 
     <script>
-        // Inicializar Iconos
         lucide.createIcons();
 
-        // 1. Quitar Pantalla de Carga
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
@@ -422,7 +415,6 @@
             }, 2000);
         });
 
-        // 2. Cambio de Tema (Punto 28)
         function toggleTheme() {
             const html = document.documentElement;
             const icon = document.getElementById('theme-icon');
@@ -438,7 +430,6 @@
             lucide.createIcons();
         }
 
-        // 3. Partículas de Fondo (Punto 4/6)
         const particlesContainer = document.getElementById('particles-container');
         for (let i = 0; i < 20; i++) {
             const p = document.createElement('div');
@@ -452,9 +443,8 @@
             particlesContainer.appendChild(p);
         }
 
-        // 4. Contador de Apertura (Punto 9)
         const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 15); // Ejemplo: Abre en 15 días
+        targetDate.setDate(targetDate.getDate() + 15); 
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -468,7 +458,6 @@
         }
         setInterval(updateCountdown, 1000);
 
-        // 5. Revelar al hacer Scroll (Punto 5)
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
