@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DulceRP | Próximamente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Colores Personalizados DulceRP */
+        :root {
+            --accent-pink: #ff85a2;
+            --accent-blue: #7ec8ff;
+            --bg-dark: #0f172a;
+            --bg-light: #f8fafc;
+        }
+
+        .dark { --bg-current: var(--bg-dark); --text-current: #ffffff; }
+        .light { --bg-current: var(--bg-light); --text-current: #0f172a; }
+
+        /* Pantalla de Carga Animada */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .logo-bounce {
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 0 15px var(--accent-pink));
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Fondo con Parallax */
+        .hero-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                        url('https://images.unsplash.com/photo-1542204172-3c3f87f91802?q=80&w=2000'); /* IMAGEN: Fondo principal de FiveM/Ciudad */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* Cristal efecto */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .light .glass {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Botones con brillo */
+        .btn-glow:hover {
+            box-shadow: 0 0 20px var(--accent-pink);
+            transform: scale(1.05);
+        }
+
+        /* Partículas flotantes */
+        .particle {
+            position: absolute;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100vh) translateX(50px); }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg-current)] text-[var(--text-current)] transition-colors duration-500">
+
+    <div id="loader">
+        <img src="https://wallpapercave.com/wp/wp8012953.jpg" alt="Logo" class="w-32 h-32 logo-bounce mb-4"> <h1 class="text-white text-2xl font-bold tracking-widest uppercase">Cargando DulceRP...</h1>
+        <div class="w-48 h-1 bg-gray-700 mt-4 rounded-full overflow-hidden">
+            <div class="h-full bg-[#ff85a2] animate-[progress_2s_ease-in-out]"></div>
+        </div>
+    </div>
+
+    <button onclick="toggleTheme()" class="fixed top-5 right-5 z-50 p-3 glass rounded-full hover:bg-pink-500 transition-all">
+        <i data-lucide="sun" id="theme-icon"></i>
+    </button>
+
+    <header class="relative h-screen flex items-center justify-center hero-bg overflow-hidden">
+        <div id="particles-container"></div>
+        
+        <div class="relative z-10 text-center px-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/825/825590.png" class="w-40 mx-auto mb-6 drop-shadow-2xl" alt="Logo"> <h1 class="text-6xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400 mb-4 animate-pulse">
+                DULCE RP
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-200">Una experiencia de rol única y... ¡muy dulce!</p>
+            
+            <div class="flex gap-4 justify-center mb-10" id="countdown">
+                <div class="glass p-4 min-w-[80px]"><span id="days" class="text-3xl font-bold block">00</span>Días</div>
+                <div class="glass p-4 min-w-[80px]"><span id="hours" class="text-3xl font-bold block">00</span>Hs</div>
+                <div class="glass p-4 min-w-[80px]"><span id="mins" class="text-3xl font-bold block">00</span>Min</div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://discord.gg/mJyCYDBX" target="_blank" class="bg-pink-500 text-white px-8 py-4 rounded-full font-bold flex items-center gap-2 btn-glow transition-all">
+                    <i data-lucide="message-circle"></i> Unirse al Discord
+                </a>
+                <a href="#about" class="glass px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">
+                    Saber más
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-20 px-6 max-w-6xl mx-auto scroll-reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+                <i data-lucide="star" class="text-pink-500"></i> Bienvenidos al Proyecto
+            </h2>
+            <div class="h-1 w-20 bg-pink-500 mx-auto"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass p-8 hover:-translate-y-2 transition-transform">
+                <i data-lucide="shield-check" class="w-12 h-12 text-blue-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Serious RP</h3>
+                <p class="opacity-70">Fomentamos el rol interpretativo de alta calidad con una normativa justa.</p>
+            </div>
+            <div class="glass p-8 hover:-translate-y-2 transition-transform">
+                <i data-lucide="trending-up" class="w-12 h-12 text-pink-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Economía Balanceada</h3>
+                <p class="opacity-70">Olvídate de los millonarios en dos días. Aquí cada moneda cuenta.</p>
+            </div>
+            <div class="glass p-8 hover:-translate-y-2 transition-transform">
+                <i data-lucide="users" class="text-purple-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Comunidad</h3>
+                <p class="opacity-70">Buscamos gente con ganas de sumar y crear historias increíbles.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 bg-black/20">
+        <div class="max-w-4xl mx-auto px-6 flex flex-wrap justify-around items-center gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-4 h-4 bg-yellow-500 rounded-full animate-ping"></div>
+                <span class="text-xl font-mono">STATUS: <span class="text-yellow-500 uppercase">En Desarrollo</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <i data-lucide="server" class="text-blue-400"></i>
+                <span class="text-xl font-mono">FIVEM: <span class="opacity-50">Cerrado (Apertura pronto)</span></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-gradient-to-b from-transparent to-pink-500/10">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 scroll-reveal">Oportunidades en la Ciudad</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass overflow-hidden group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=400" class="w-full h-40 object-cover group-hover:scale-110 transition-transform">
+                    <div class="p-6">
+                        <h4 class="font-bold text-pink-400">LSPD / EMS</h4>
+                        <p class="text-sm opacity-70">¡Buscamos personal activo para seguridad y salud!</p>
+                    </div>
+                </div>
+                <div class="glass overflow-hidden group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=400" class="w-full h-40 object-cover group-hover:scale-110 transition-transform">
+                    <div class="p-6">
+                        <h4 class="font-bold text-blue-400">Trabajos Legales</h4>
+                        <p class="text-sm opacity-70">Minería, logística, pesca y mucho más.</p>
+                    </div>
+                </div>
+                <div class="glass overflow-hidden group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1578164015112-9cd51996236b?q=80&w=400" class="w-full h-40 object-cover group-hover:scale-110 transition-transform">
+                    <div class="p-6">
+                        <h4 class="font-bold text-red-400">Mafias / Bandas</h4>
+                        <p class="text-sm opacity-70">Controla los barrios y el mercado negro bajo cuerda.</p>
+                    </div>
+                </div>
+                <div class="glass overflow-hidden group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=400" class="w-full h-40 object-cover group-hover:scale-110 transition-transform">
+                    <div class="p-6">
+                        <h4 class="font-bold text-purple-400">Staff</h4>
+                        <p class="text-sm opacity-70">Buscamos gente seria para moderar el servidor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 max-w-6xl mx-auto scroll-reveal">
+        <h2 class="text-4xl font-bold text-center mb-16">Fundadores & Redes</h2>
+        <div class="flex flex-wrap justify-center gap-12 mb-16">
+            <div class="text-center">
+                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-pink-500 to-blue-500 p-1 mx-auto mb-4">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="bg-slate-800 rounded-full">
+                </div>
+                <p class="font-bold">Admin Dulce</p>
+                <p class="text-xs opacity-50 uppercase">Fundador</p>
+            </div>
+            <div class="text-center">
+                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-pink-500 to-blue-500 p-1 mx-auto mb-4">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sugar" class="bg-slate-800 rounded-full">
+                </div>
+                <p class="font-bold">Staff Principal</p>
+                <p class="text-xs opacity-50 uppercase">Moderación</p>
+            </div>
+        </div>
+        
+        <div class="flex justify-center gap-8">
+            <a href="#" class="hover:text-pink-500 transition-colors"><i data-lucide="twitter" class="w-8 h-8"></i></a>
+            <a href="#" class="hover:text-pink-500 transition-colors"><i data-lucide="instagram" class="w-8 h-8"></i></a>
+            <a href="#" class="hover:text-pink-500 transition-colors"><i data-lucide="youtube" class="w-8 h-8"></i></a>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 glass max-w-4xl mx-auto mb-20 scroll-reveal">
+        <h2 class="text-3xl font-bold text-center mb-8">Nuestra Comunidad en Vivo</h2>
+        <div class="rounded-xl overflow-hidden shadow-2xl">
+            <iframe src="https://discord.com/widget?id=TU_ID_DE_DISCORD_AQUI&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </div>
+    </section>
+
+    <section class="py-10 text-center scroll-reveal">
+        <h3 class="text-xl font-bold opacity-50 mb-6 uppercase tracking-widest">👑 Top Boosters 👑</h3>
+        <div class="flex justify-center gap-4 flex-wrap px-4">
+            <span class="glass px-4 py-2 rounded-full text-sm">User_Example1</span>
+            <span class="glass px-4 py-2 rounded-full text-sm">DonadorPro</span>
+            <span class="glass px-4 py-2 rounded-full text-sm">SugarDaddyRP</span>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center opacity-30 text-sm">
+        <p>&copy; 2024 DulceRP - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // 1. Quitar Pantalla de Carga
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 800);
+            }, 2000);
+        });
+
+        // 2. Cambio de Tema (Punto 28)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                icon.setAttribute('data-lucide', 'moon');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                icon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+        }
+
+        // 3. Partículas de Fondo (Punto 4/6)
+        const particlesContainer = document.getElementById('particles-container');
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.width = Math.random() * 10 + 5 + 'px';
+            p.style.height = p.style.width;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = Math.random() * 100 + 'vh';
+            p.style.animationDuration = Math.random() * 5 + 5 + 's';
+            p.style.animationDelay = Math.random() * 5 + 's';
+            particlesContainer.appendChild(p);
+        }
+
+        // 4. Contador de Apertura (Punto 9)
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 15); // Ejemplo: Abre en 15 días
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('days').innerText = d < 10 ? '0'+d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0'+h : h;
+            document.getElementById('mins').innerText = m < 10 ? '0'+m : m;
+        }
+        setInterval(updateCountdown, 1000);
+
+        // 5. Revelar al hacer Scroll (Punto 5)
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
